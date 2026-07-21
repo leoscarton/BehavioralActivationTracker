@@ -50,3 +50,41 @@ class Activity:
 
         if not self.check_mood_values(self.mood_after):
             raise ValueError("Invalid mood values")
+
+    def change_title(self, new_title: str):
+        if not new_title or len(new_title) <= 0:
+            raise ValueError("New title cannot be empty")
+        self.title = new_title
+    
+    def change_category(self, new_category: str):
+        if not new_category or len(new_category) <= 0:
+            raise ValueError("New category cannot be empty")
+        self.category = new_category
+
+    def change_description(self, new_description: str):
+        if not new_description or len(new_description) <= 0:
+            raise ValueError("New description cannot be empty")
+        self.description = new_description
+
+    def change_planned_date_of_completion(self, new_planned_date_of_completion: pd.DatetimeIndex):
+        if not new_planned_date_of_completion:
+            raise ValueError("New planned date of completion cannot be empty")
+        self.planned_date_of_completion = new_planned_date_of_completion
+
+    def change_actual_date_of_completion(self, new_actual_date_of_completion: pd.DatetimeIndex):
+        if new_actual_date_of_completion < self.planned_date_of_completion:
+            raise ValueError("Actual date of completion cannot be before planned date of completion")
+        self.actual_date_of_completion = new_actual_date_of_completion
+
+    def change_status(self, new_status: bool):
+        self.status = new_status
+
+    def change_mood_before(self, new_mood_before: float):
+        if not self.check_mood_values(new_mood_before):
+            raise ValueError("Invalid mood values")
+        self.mood_before = new_mood_before
+
+    def change_mood_after(self, new_mood_after: float):
+        if not self.check_mood_values(new_mood_after):
+            raise ValueError("Invalid mood values")
+        self.mood_after = new_mood_after
