@@ -6,10 +6,10 @@ from decimal import Decimal
 class Activity:
     title: str
     category: str # May change later
-    description: str = ''
+    description: str
     planned_date_of_completion: pd.DatetimeIndex # May change later
     actual_date_of_completion: pd.DatetimeIndex # May change later
-    status: bool = False
+    status: bool
     mood_before: float
     mood_after: float
 
