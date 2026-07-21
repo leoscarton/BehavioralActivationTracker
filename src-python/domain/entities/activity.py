@@ -13,6 +13,17 @@ class Activity:
     mood_before: float
     mood_after: float
 
+    def check_mood_values(mood_value):
+        if not (0.0 <= mood_value <= 10.0):
+            raise ValueError("Mood values must range from 0.0 to 10.0")
+            return False
+        
+        if (Decimal(str(mood_value)).as_tuple().exponent < -1):
+            raise ValueError("Mood values must have only 1 decimal digit")
+            return False
+
+        return True
+
     def __post_init__(self):
         # All verifications are subject to change later in the project
         if not self.title or len(self.title) <= 0:
@@ -34,9 +45,8 @@ class Activity:
         if self.status is None:
             self.status = False
 
-        if not ((0.0 <= self.mood_before <= 10.0) and (0.0 <= self.mood_after <= 10.0)):
-            raise ValueError("Mood values must range from 0.0 to 10.0")
-        
-        if ((Decimal(str(self.mood_before)).as_tuple().exponent < -1) or (Decimal(str(self.mood_after)).as_tuple().exponent < -1)):
-            raise ValueError("Mood values must have only 1 decimal digit")
-    
+        if not self.check_mood_values(self.mood_before):
+            raise ValueError("Invalid mood values")
+
+        if not self.check_mood_values(self.mood_after):
+            raise ValueError("Invalid mood values")
