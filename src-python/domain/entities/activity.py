@@ -12,17 +12,35 @@ class Activity:
     status: bool
     mood_before: float
     mood_after: float
+    energy_level_before: float
+    energy_level_after: float
+    mood_delta: float
+    energy_delta: float
 
     def check_mood_values(mood_value):
         if not (0.0 <= mood_value <= 10.0):
             raise ValueError("Mood values must range from 0.0 to 10.0")
-            #return False
         
         if (Decimal(str(mood_value)).as_tuple().exponent < -1):
             raise ValueError("Mood values must have only 1 decimal digit")
-            #return False
 
         return True
+
+    def check_energy_values(energy_value):
+        if not (0.0 <= energy_value <= 100.0):
+            raise ValueError("Energy values must range from 0.0 to 100.0")
+                
+        if (Decimal(str(energy_value)).as_tuple().exponent < -1):
+            raise ValueError("Energy values must have only 1 decimal digit")
+        
+        return True
+
+    def update_mood_delta(self):
+        self.mood_delta = self.mood_after - self.mood_before
+
+    def update_energy_delta(self):
+        self.energy_delta = self.energy_level_after - self.energy_level_before
+
 
     def __post_init__(self):
         # All verifications are subject to change later in the project
@@ -45,11 +63,24 @@ class Activity:
         if self.status is None:
             self.status = False
 
-        if not self.check_mood_values(self.mood_before):
-            raise ValueError("Invalid mood values")
+        #if not self.check_mood_values(self.mood_before):
+        #    raise ValueError("Invalid mood values")
 
-        if not self.check_mood_values(self.mood_after):
-            raise ValueError("Invalid mood values")
+        #if not self.check_mood_values(self.mood_after):
+        #    raise ValueError("Invalid mood values")
+
+        try:
+            self.check_mood_values(self.mood_before)
+            self.check_mood_values(self.mood_after)
+            self.check_energy_values(self.energy_level_before)
+            self.check_energy_values(self.energy_level_after)
+        except ValueError as e:
+            print(e) #Placeholder, probably will change in the future
+
+
+#########################################################################################
+#  Functions to change values of activities variables
+#########################################################################################
 
     def change_title(self, new_title: str):
         if not new_title or len(new_title) <= 0:
@@ -83,12 +114,30 @@ class Activity:
         try:
             self.check_mood_values(new_mood_before)
             self.mood_before = new_mood_before
+            self.update_mood_delta()
         except ValueError as e:
-            print(f"Invalid mood error: {e}")
+            print(f"Invalid mood error: {e}") #Placeholder, probably will change in the future
 
     def change_mood_after(self, new_mood_after: float):
         try:
             self.check_mood_values(new_mood_after)
             self.mood_after = new_mood_after
+            self.update_mood_delta()
         except ValueError as e:
-            print(f"Invalid mood error: {e}")
+            print(f"Invalid mood error: {e}") #Placeholder, probably will change in the future
+
+    def change_energy_level_before(self, new_energy_before: float):
+        try:
+            self.check_energy_values(new_energy_before)
+            self.energy_level_before = new_energy_before
+            self.update_energy_delta()
+        except ValueError as e:
+            print(f"Invalid energy level error: {e}") #Placeholder, probably will change in the future
+
+    def change_energy_level_after(self, new_energy_after: float):
+        try:
+            self.check_energy_values(new_energy_after)
+            self.energy_level_after = new_energy_after
+            self.update_energy_delta()
+        except ValueError as e:
+            print(f"Invalid energy level error: {e}") #Placeholder, probably will change in the future
