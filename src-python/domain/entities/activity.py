@@ -16,11 +16,11 @@ class Activity:
     def check_mood_values(mood_value):
         if not (0.0 <= mood_value <= 10.0):
             raise ValueError("Mood values must range from 0.0 to 10.0")
-            return False
+            #return False
         
         if (Decimal(str(mood_value)).as_tuple().exponent < -1):
             raise ValueError("Mood values must have only 1 decimal digit")
-            return False
+            #return False
 
         return True
 
@@ -80,11 +80,15 @@ class Activity:
         self.status = new_status
 
     def change_mood_before(self, new_mood_before: float):
-        if not self.check_mood_values(new_mood_before):
-            raise ValueError("Invalid mood values")
-        self.mood_before = new_mood_before
+        try:
+            self.check_mood_values(new_mood_before)
+            self.mood_before = new_mood_before
+        except ValueError as e:
+            print(f"Invalid mood error: {e}")
 
     def change_mood_after(self, new_mood_after: float):
-        if not self.check_mood_values(new_mood_after):
-            raise ValueError("Invalid mood values")
-        self.mood_after = new_mood_after
+        try:
+            self.check_mood_values(new_mood_after)
+            self.mood_after = new_mood_after
+        except ValueError as e:
+            print(f"Invalid mood error: {e}")
