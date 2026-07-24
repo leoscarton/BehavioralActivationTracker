@@ -4,13 +4,13 @@ A WIP desktop application focused on assisting individuals going through **Behav
 
 This project does not aim to be a substitute to formal psychotherapy nor an official, scientifically-backed resource, but merely an intuitive and useful tool to be used alongside it to track activities and habits developed in the process of healing, as well as serve as a visual cue for monitoring and validating moods and energy levels.
 
-# General architecture:
+## General architecture:
 
-## Back-End:
+### Back-End:
 
 - Language: Python 3.14.6
 
-## Front-End
+### Front-End
 
 - Language: TypeScript 7.0.2
 
