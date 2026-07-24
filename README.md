@@ -8,7 +8,7 @@ This project does not aim to be a substitute to formal psychotherapy nor an offi
 
 ## Back-End:
 
-- Language: Python 3.16
+- Language: Python 3.14.6
 
 ## Front-End
 
